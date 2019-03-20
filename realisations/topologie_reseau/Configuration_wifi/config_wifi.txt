@@ -1,0 +1,56 @@
+no service pad
+service timestamps debug datetime msec
+service timestamps log datetime msec
+service password-encryption
+!
+hostname ipfire
+!
+enable secret Cisco
+!
+no aaa new-model
+!
+!
+dot11 syslog
+!
+dot11 ssid ipfire
+   authentication open 
+   guest-mode
+!
+!
+!         
+username Cisco password Cisco
+!
+!
+bridge irb
+!
+!
+interface Dot11Radio0
+ no ip address
+ no ip route-cache
+ !
+ ssid ipfire
+ !
+ station-role root
+ bridge-group 1
+ bridge-group 1 subscriber-loop-control
+ bridge-group 1 block-unknown-source
+ no bridge-group 1 source-learning
+ no bridge-group 1 unicast-flooding
+ bridge-group 1 spanning-disabled
+!
+!
+!
+interface BVI1
+ ip address 192.168.1.2 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 192.168.1.1
+ip http server
+no ip http secure-server
+ip http help-path http://www.cisco.com/warp/public/779/smbiz/prodconfig/help/eag
+bridge 1 route ip
+!
+!
+!
+end
+
